@@ -19,26 +19,22 @@ public class ClientServiceTest {
 
     @Test
     public void addClient(){
-
         cs.getDao().create(first);
     }
 
     @Test
     public void outClient(){
-
         System.out.println(cs.getDao().read(1).toString());
     }
 
     @Test
     public void updateClient(){
-
         first.setSurname("Ivanets");
        cs.getDao().update(first);
     }
 
     @Test
     public void deleteClient(){
-
         cs.getDao().delete(10);
     }
 
@@ -49,8 +45,5 @@ public class ClientServiceTest {
                 new FileSystemXmlApplicationContext("./src/main/resources/spring-context.xml");
         Client cl = (Client)context.getBean("client-bean");
         System.out.println(cl.toString());
-
-
-
     }
 }

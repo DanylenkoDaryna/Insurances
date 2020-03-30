@@ -13,6 +13,13 @@ public class ContractHibernateTest {
     @Test
     public void create() {
 
+        try (AbstractApplicationContext context =
+                     new FileSystemXmlApplicationContext("./src/main/resources/spring-context.xml")) {
+
+            ContractBeanService contrService = context.getBean("contract-bean-service", ContractBeanService.class);
+            Contract bean = context.getBean("contract-bean", Contract.class);
+            contrService.doCreate2(bean);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package service;
 
+import dao.HibernateUnivesalDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

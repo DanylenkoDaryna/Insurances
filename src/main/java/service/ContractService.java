@@ -1,5 +1,6 @@
 package service;
 
+import dao.ContractDao;
 import dao.IContractDao;
 
 public class ContractService implements IContractService {
