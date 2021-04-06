@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ContractTest {
 
     private Client first;
-    private Client seckond;
+    private Client second;
     private ArrayList<InsuredPerson> actual;
     private ArrayList<InsuredPerson> expects;
     private Contract c;
@@ -49,14 +49,14 @@ public class ContractTest {
 
 
 
-        seckond = new Client(Type.NATURAL, "Vasilyev","Vasilyi", "Vasilyevich", "Kyiv","Poetry", "35", 2);
+        second = new Client(Type.NATURAL, "Vasilyev","Vasilyi", "Vasilyevich", "Kyiv","Poetry", "35", 2);
         expects = new ArrayList<>();
 
         contractBuilder.setId(93);
         contractBuilder.setAcceptDate(LocalDate.of(2018, 11, 11));
         contractBuilder.setStartDate(LocalDate.of(2018, 12, 11));
         contractBuilder.setEndDate(LocalDate.of(2020, 12, 11));
-        contractBuilder.setClient(seckond);
+        contractBuilder.setClient(second);
         contractBuilder.setPersons(expects);
 
         b =contractBuilder.getResult();
@@ -70,7 +70,7 @@ public class ContractTest {
     public void afterTest() {
 
         first = null;
-        seckond = null;
+        second = null;
         actual = null;
         expects = null;
         c = null;

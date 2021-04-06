@@ -14,7 +14,7 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
 >
-    <context:component-scan base-package="service,dao"/>
+    <context:component-scan base-package="service.dao"/>
 
 
     <bean id="PropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -41,9 +41,12 @@
     <tx:annotation-driven transaction-manager="TxManager" proxy-target-class="true"/>
 
 
-    <bean id="client-dao-operations" class="service.ClientBeanDao" scope="singleton"/>
-    <bean id="person-dao-operations" class="service.PersonBeanDao" scope="singleton"/>
-    <bean id="contract-dao-operations" class="service.ContractJdbcTemplateDao" scope="singleton"/>
+   <!-- <bean id="client-dao-operations" class="dao.ClientBeanDao" scope="singleton"/>
+    <bean id="person-dao-operations" class="dao.PersonBeanDao" scope="singleton"/>
+    <bean id="contract-dao-operations" class="dao.ContractJdbcTemplateDao" scope="singleton"/>  -->
+    <bean id="client-dao-operations" class="dao.HibernateClientDao" scope="singleton"/>
+    <bean id="person-dao-operations" class="dao.HibernatePersonDao" scope="singleton"/>
+    <bean id="contract-dao-operations" class="dao.HibernateContractDao" scope="singleton"/>
 
 
     <bean id="client-bean" class="data.Client">
@@ -59,10 +62,14 @@
         <constructor-arg value="yyyy-MM-dd" />
     </bean>
 
-    <bean id="client-bean-service" class="service.ClientBeanService">
+   <!-- <bean id="client-bean-service" class="service.ClientBeanService">-->
+    <bean id="client-bean-service" class="service.ClientHibernateService">
         <!-- <property name="dao">
-             <bean class="service.ClientBeanDao"/>
+             <bean class="dao.ClientBeanDao"/>
          </property> -->
+         <property name="dao">
+         <ref bean="client-dao-operations"></ref>
+     </property>
      </bean>
 
 
@@ -75,11 +82,15 @@
      <property name="personalCost" value="234.5"/>
  </bean>
 
-     <bean id="person-bean-service" class="service.PersonBeanService">
-         <!-- <property name="dao">
-              <bean class="service.PersonBeanDao"/>
+    <bean id="person-bean-service" class="service.PersonBeanService">
+    <!--<bean id="person-bean-service" class="service.PersonBeanService">
+          <property name="dao">
+              <bean class="dao.PersonBeanDao"/>
           </property> -->
-     </bean>
+        <property name="dao">
+           <ref bean="person-dao-operations"></ref>
+        </property>
+    </bean>
 
      <bean id="contract-bean" class="service.Contract">
          <property name="id" value="11"/>
@@ -97,10 +108,14 @@
 
      </bean>
 
-     <bean id="contract-bean-service" class="service.ContractBeanService">
-        <!-- <property name="dao">
-             <bean class="service.ContractJdbcTemplateDao"/>
+    <bean id="contract-bean-service" class="service.ContractHibernateService">
+    <!-- <bean id="contract-bean-service" class="service.ContractBeanService">
+         <property name="dao">
+             <bean class="dao.ContractJdbcTemplateDao"/>
          </property>-->
+        <property name="dao">
+            <bean class="dao.HibernateContractDao"/>
+        </property>
     </bean>
 
 </beans>

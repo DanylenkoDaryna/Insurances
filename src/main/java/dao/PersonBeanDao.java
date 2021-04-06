@@ -49,13 +49,10 @@ public class PersonBeanDao implements IPersonDao {
             ps.setInt(6, p.getNumber());
             return ps;
         });
-
-
     }
 
     @Override
     public Object read(long id) {
-
 
         return jdbc.queryForObject(READ_QUERY, new Object[]{id}, InsuredPerson.class);
     }

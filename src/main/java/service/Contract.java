@@ -109,7 +109,7 @@ public class Contract implements IContract, Serializable {
         for (InsuredPerson p : this.getPersonList()) {
             result += p.getPersonalCost();
         }
-
+        //сюди додати різні види обходу списку
         return result;
     }
 

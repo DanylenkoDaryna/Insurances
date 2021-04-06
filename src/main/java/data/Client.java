@@ -23,7 +23,6 @@ public class Client implements Serializable {
     private String city;
     private String street;
     private String building;
-
     private Contract contract;
 
 
@@ -36,6 +35,21 @@ public class Client implements Serializable {
         this.setCity(city);
         this.setStreet(street);
         this.setBuilding(building);
+        contract=new Contract();
+
+    }
+
+    public Client(Type pers, String name, String middleName, String surname, String city, String street,
+                  String building, int id, Contract contract1) {
+        this.setId(id);
+        this.setPerson(pers);
+        this.setName(name);
+        this.setMiddleName(middleName);
+        this.setSurname(surname);
+        this.setCity(city);
+        this.setStreet(street);
+        this.setBuilding(building);
+        contract=contract1;
 
     }
 
@@ -43,7 +57,7 @@ public class Client implements Serializable {
     /**
      * @param pers  enum that specify one of types of person ENTITY or NATURAL
      * @param names FIO(first, middle, last name)(for NATURAL person)/name of the organization(for ENTITY person)
-     * @param id
+     * @param id id
      */
     public Client(Type pers, String names, String city, String street, String building, int id) {
         this.setId(id);
@@ -66,7 +80,8 @@ public class Client implements Serializable {
         city="";
         street="";
         building="";
-        contract.setMan(this);
+        //contract.setMan(this);
+       // contract.setMan(new Client());
     }
 
     @Override

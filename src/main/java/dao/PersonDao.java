@@ -4,6 +4,7 @@ import dao.ConnectionFactory;
 import dao.IPersonDao;
 import data.Client;
 import data.InsuredPerson;
+import service.PersonService;
 
 import java.sql.*;
 import java.time.LocalDate;

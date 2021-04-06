@@ -1,2 +1,8 @@
 C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\ua\profitsoft\entity\InsuredPersonTest.java
+C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\service\ContractHibernateTest.java
+C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\service\ContractServiceTest.java
+C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\service\PersonServiceTest.java
+C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\dao\ConnectionFactoryTest.java
+C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\service\ContractJdbcTDaoTest.java
+C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\service\ClientServiceTest.java
 C:\Users\Дарина\IdeaProjects\Insurances\src\test\java\ua\profitsoft\entity\ContractTest.java
