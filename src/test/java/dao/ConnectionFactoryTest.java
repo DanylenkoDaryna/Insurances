@@ -18,10 +18,8 @@ public class ConnectionFactoryTest {
             //ps.addBatch();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-// Напечатать значения в текущей строке.
-
-
-                        Date d= rs.getDate("accept_date");
+            // Напечатать значения в текущей строке.
+                Date d= rs.getDate("accept_date");
                 LocalDate acceptDate=d.toLocalDate();
                 System.out.println("acceptDate = " + acceptDate);
             }

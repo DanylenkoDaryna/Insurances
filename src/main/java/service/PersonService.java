@@ -1,6 +1,7 @@
 package service;
 
 import dao.IPersonDao;
+import dao.PersonDao;
 import data.InsuredPerson;
 
 public class PersonService implements IPersonService {

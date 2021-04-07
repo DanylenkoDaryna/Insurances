@@ -5,6 +5,9 @@ import data.InsuredPerson;
 import dict.Type;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class ContractServiceTest {
         Director director = new Director();
         contractBuilder=new ContractBuilder();
         director.constructContract(contractBuilder);
-        contractBuilder.setId(10);
+        contractBuilder.setId(11);
         contractBuilder.setAcceptDate(LocalDate.of(2018, 9, 1));
         contractBuilder.setStartDate(LocalDate.of(2018, 10, 1));
         contractBuilder.setEndDate(LocalDate.of(2020, 10, 1));
@@ -74,5 +77,26 @@ public class ContractServiceTest {
 
         cs.getDao().delete(2);
 
+    }
+
+
+    @Test
+    public void springContract(){
+
+        ApplicationContext context =
+                new FileSystemXmlApplicationContext("./src/main/resources/spring-context.xml");
+
+        Contract p = (Contract)context.getBean("contract-bean");
+        System.out.println(p.toString());
+    }
+
+    @Test
+    public void springContractDB() {
+        try (AbstractApplicationContext context =
+                     new FileSystemXmlApplicationContext("./src/main/resources/spring-context.xml")) {
+            Contract bean = context.getBean("contract-bean", Contract.class);
+            ContractBeanService service = context.getBean(ContractBeanService.class);
+            service.doDelete(bean);
+        }
     }
 }

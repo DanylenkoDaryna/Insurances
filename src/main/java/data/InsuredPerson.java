@@ -1,5 +1,9 @@
 package data;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import service.Contract;
+
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
@@ -18,8 +22,9 @@ public class InsuredPerson implements  Serializable {
     private String surname="no";
     private LocalDate btdate;
     private double personalCost;
+    private String localDateAsString;
 
-
+    private Contract contract;
     /**
      * Constructs a new Insured Person without parameters
      * Used for avoiding nullPointerExeption
@@ -31,6 +36,7 @@ public class InsuredPerson implements  Serializable {
         this.setSurname("Fox");
         this.setBtdate(LocalDate.of(0, 1, 1));
         this.setPersonalCost(0.0);
+        contract.addPerson(this);
     }
 
     /**
@@ -86,23 +92,13 @@ public class InsuredPerson implements  Serializable {
         this.id = id;
     }
 
-    public double getPersonalCost() {
-        return personalCost;
+    public int getNumber() {
+        return number;
     }
 
-    public void setPersonalCost(double personalCost) {
-        this.personalCost = personalCost;
+    public void setNumber(int number) {
+        this.number = number;
     }
-
-    public LocalDate getBtdate() {
-
-        return btdate;
-    }
-
-    public void setBtdate(LocalDate btdate) {
-        this.btdate = btdate;
-    }
-
 
     public String getName() {
         return name;
@@ -128,11 +124,40 @@ public class InsuredPerson implements  Serializable {
         this.surname = surname;
     }
 
-    public int getNumber() {
-        return number;
+    public LocalDate getBtdate() {
+        return btdate;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setBtdate(LocalDate btdate) {
+        this.btdate = btdate;
+    }
+
+    public double getPersonalCost() {
+        return personalCost;
+    }
+
+    public void setPersonalCost(double personalCost) {
+        this.personalCost = personalCost;
+    }
+
+    public String getLocalDateAsString() {
+        return localDateAsString;
+    }
+
+    public void setLocalDateAsString(String localDateAsString) {
+
+        String[]str=localDateAsString.split("-");
+        LocalDate ld1=LocalDate.of(Integer.parseInt(str[0]),Integer.parseInt(str[1]),
+                Integer.parseInt(str[2]));
+        this.setBtdate(ld1);
+        this.localDateAsString = localDateAsString;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 }

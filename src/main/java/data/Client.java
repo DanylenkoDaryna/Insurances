@@ -1,8 +1,10 @@
 package data;
 
 import dict.Type;
+import service.Contract;
 
 import java.io.*;
+
 
 /**
  * This class is used to contain the main info about Client that initiate the contract: type of person, FIO(first,
@@ -10,6 +12,7 @@ import java.io.*;
  *
  * @author Daryna
  */
+
 public class Client implements Serializable {
 
     private int id;
@@ -20,7 +23,7 @@ public class Client implements Serializable {
     private String city;
     private String street;
     private String building;
-
+    private Contract contract;
 
 
     public Client(Type pers, String name, String middleName, String surname, String city, String street, String building, int id) {
@@ -32,6 +35,21 @@ public class Client implements Serializable {
         this.setCity(city);
         this.setStreet(street);
         this.setBuilding(building);
+        contract=new Contract();
+
+    }
+
+    public Client(Type pers, String name, String middleName, String surname, String city, String street,
+                  String building, int id, Contract contract1) {
+        this.setId(id);
+        this.setPerson(pers);
+        this.setName(name);
+        this.setMiddleName(middleName);
+        this.setSurname(surname);
+        this.setCity(city);
+        this.setStreet(street);
+        this.setBuilding(building);
+        contract=contract1;
 
     }
 
@@ -39,7 +57,7 @@ public class Client implements Serializable {
     /**
      * @param pers  enum that specify one of types of person ENTITY or NATURAL
      * @param names FIO(first, middle, last name)(for NATURAL person)/name of the organization(for ENTITY person)
-     * @param id
+     * @param id id
      */
     public Client(Type pers, String names, String city, String street, String building, int id) {
         this.setId(id);
@@ -62,6 +80,8 @@ public class Client implements Serializable {
         city="";
         street="";
         building="";
+        //contract.setMan(this);
+       // contract.setMan(new Client());
     }
 
     @Override
@@ -71,46 +91,21 @@ public class Client implements Serializable {
                 this.getStreet()+", "+this.getBuilding();
     }
 
-    public Type getPerson() {
-        return person;
+
+    public String localDateAsString() {
+
+
+        return middleName;
     }
-
-    private void setPerson(Type person) {
-        this.person = person;
+    @Override
+    public boolean equals(Object o) {   // Необходима перегрузка метода!!!
+        if (!(o instanceof Client))
+        return false;
+        return ((Client)o).getId() == this.id;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
-    }
-
-
-
-    public String getCity() {
-        return city;
-    }
-
-    private void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    private void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getBuilding() {
-        return building;
-    }
-
-    private void setBuilding(String building) {
-        this.building = building;
+    @Override
+    public int hashCode() {// Необходима перегрузка метода!!!
+        return id;
     }
 
     public String getMiddleName() {
@@ -135,6 +130,55 @@ public class Client implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Type getPerson() {
+        return person;
+    }
+
+    public void setPerson(Type person) {
+        this.person = person;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
     }
 }
 

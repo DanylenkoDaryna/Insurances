@@ -52,18 +52,18 @@ public class Demo {
         contractBuilder.setPersons(firstList);
 
 
-        Contract ID41 =contractBuilder.getResult();
-        System.out.print(ID41.toString());
-        System.out.println(ID41.getTotalCost());
+        Contract contractId41 = contractBuilder.getResult();
+        System.out.print(contractId41.toString());
+        System.out.println(contractId41.getTotalCost());
 
-        Client seckond = new Client(Type.NATURAL, "Petrichenko", "Anthon", "Victorovich", "Kharkyv",
+        Client second = new Client(Type.NATURAL, "Petrichenko", "Anthon", "Victorovich", "Kharkyv",
                 "Klochkovskaya", "111-A", 2);
-        ArrayList<InsuredPerson> secList = new ArrayList<>();
-        secList.add(new InsuredPerson(1, "Ivashenko", "Inokentiy", "Nikolovich",
+        ArrayList<InsuredPerson> secListInsuredPers = new ArrayList<>();
+        secListInsuredPers.add(new InsuredPerson(1, "Ivashenko", "Inokentiy", "Nikolovich",
                 LocalDate.of(1982, 10, 3), 220.55));
-        secList.add(new InsuredPerson(2, "Danylchenko", "Dmythriy", "Horithonovich",
+        secListInsuredPers.add(new InsuredPerson(2, "Danylchenko", "Dmythriy", "Horithonovich",
                 LocalDate.of(1997, 12, 14), 49.99));
-        secList.add(new InsuredPerson(3, "Prof","IT", "Soft ",
+        secListInsuredPers.add(new InsuredPerson(3, "Prof","IT", "Soft ",
                 LocalDate.of(2002, 8, 7), 0.0));
 
 
@@ -72,16 +72,16 @@ public class Demo {
         contractBuilder.setAcceptDate(LocalDate.of(2015, 8, 17));
         contractBuilder.setStartDate(LocalDate.of(2002, 9, 17));
         contractBuilder.setEndDate(LocalDate.of(2019, 9, 17));
-        contractBuilder.setClient(seckond);
-        contractBuilder.setPersons(secList);
+        contractBuilder.setClient(second);
+        contractBuilder.setPersons(secListInsuredPers);
 
-        Contract ID42 = contractBuilder.getResult();
-        System.out.print(ID42.toString());
-        System.out.println(ID42.getTotalCost());
+        Contract contractId42 = contractBuilder.getResult();
+        System.out.print(contractId42.toString());
+        System.out.println(contractId42.getTotalCost());
 
-            ID42.saveCSV();
+        contractId42.saveCSV();
 
-            System.out.println(ID42.uploadCSV().toString());
+            System.out.println(contractId42.uploadCSV().toString());
 
     }
 

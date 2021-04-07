@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop = "http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
+>
+    <context:component-scan base-package="service.dao"/>
+
+
+    <bean id="PropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>src/main/java/config/jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${DB_DRIVER}"/>
+        <property name="url" value="${DB_URL}"/>
+        <property name="username" value="${DB_USER_NAME}"/>
+        <property name="password" value="${DB_USER_PASS}"/>
+    </bean>
+
+    <bean id="TxManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="DataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="TxManager" proxy-target-class="true"/>
+
+
+   <!-- <bean id="client-dao-operations" class="dao.ClientBeanDao" scope="singleton"/>
+    <bean id="person-dao-operations" class="dao.PersonBeanDao" scope="singleton"/>
+    <bean id="contract-dao-operations" class="dao.ContractJdbcTemplateDao" scope="singleton"/>  -->
+    <bean id="client-dao-operations" class="dao.HibernateClientDao" scope="singleton"/>
+    <bean id="person-dao-operations" class="dao.HibernatePersonDao" scope="singleton"/>
+    <bean id="contract-dao-operations" class="dao.HibernateContractDao" scope="singleton"/>
+
+
+    <bean id="client-bean" class="data.Client">
+    <property name="person" value="LEGAL"/>
+    <property name="name" value="Ignasio"/>
+    <property name="middleName" value="Ivanych"/>
+    <property name="surname" value="Linn"/>
+    <property name="city" value="Star"/>
+    <property name="street" value="Pain"/>
+    <property name="building" value="123"/>
+</bean>
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy-MM-dd" />
+    </bean>
+
+   <!-- <bean id="client-bean-service" class="service.ClientBeanService">-->
+    <bean id="client-bean-service" class="service.ClientHibernateService">
+        <!-- <property name="dao">
+             <bean class="dao.ClientBeanDao"/>
+         </property> -->
+         <property name="dao">
+         <ref bean="client-dao-operations"></ref>
+     </property>
+     </bean>
+
+
+     <bean id="person-bean" class="data.InsuredPerson">
+     <property name="id" value="1"/>
+     <property name="name" value="Enrico"/>
+     <property name="middleName" value="Ilich"/>
+     <property name="surname" value="Puska"/>
+     <property name="localDateAsString" value="1971-08-20"/>
+     <property name="personalCost" value="234.5"/>
+ </bean>
+
+    <bean id="person-bean-service" class="service.PersonBeanService">
+    <!--<bean id="person-bean-service" class="service.PersonBeanService">
+          <property name="dao">
+              <bean class="dao.PersonBeanDao"/>
+          </property> -->
+        <property name="dao">
+           <ref bean="person-dao-operations"></ref>
+        </property>
+    </bean>
+
+     <bean id="contract-bean" class="service.Contract">
+         <property name="id" value="11"/>
+         <property name="acceptDateAsString" value="1971-08-20"/>
+         <property name="startDateAsString" value="1971-03-14"/>
+         <property name="endDateAsString" value="1955-06-08"/>
+         <property name="man">
+             <ref bean="client-bean"/>
+         </property>
+         <property name="personList" >
+             <list>
+                 <ref bean="person-bean"/>
+             </list>
+         </property>
+
+     </bean>
+
+    <bean id="contract-bean-service" class="service.ContractHibernateService">
+    <!-- <bean id="contract-bean-service" class="service.ContractBeanService">
+         <property name="dao">
+             <bean class="dao.ContractJdbcTemplateDao"/>
+         </property>-->
+        <property name="dao">
+            <bean class="dao.HibernateContractDao"/>
+        </property>
+    </bean>
+
+</beans>

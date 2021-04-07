@@ -1,5 +1,6 @@
 package service;
 
+import dao.ClientDao;
 import dao.IClientDao;
 import data.Client;
 
